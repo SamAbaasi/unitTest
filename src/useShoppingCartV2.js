@@ -1,17 +1,5 @@
 import { useState } from 'react';
 
-const calculateItemTotal = (item) => {
-  let itemTotal = item.price * item.quantity;
-  if (item.taxable) {
-    itemTotal += calculateTax(itemTotal, item.taxRate);
-  }
-  return itemTotal;
-};
-
-const calculateTax = (amount, taxRate) => {
-  return amount * taxRate;
-};
-
 export const useShoppingCart = () => {
   const [items, setItems] = useState([]);
   const [name, setName] = useState('');
@@ -60,6 +48,18 @@ export const useShoppingCart = () => {
     setTaxable(item.taxable);
     setTaxRate(item.taxRate * 100);
     setEditIndex(index);
+  };
+  
+  const calculateTax = (amount, taxRate) => {
+    return amount * taxRate;
+  };
+
+  const calculateItemTotal = (item) => {
+    let itemTotal = item.price * item.quantity;
+    if (item.taxable) {
+      itemTotal += calculateTax(itemTotal, item.taxRate);
+    }
+    return itemTotal;
   };
 
   const calculateTotal = () => {
