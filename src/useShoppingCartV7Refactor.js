@@ -28,7 +28,6 @@ export const useShoppingCart = () => {
     return true; // Default to true for unknown types
   };
 
-  // Function to add an item to the shopping cart
   const addItem = () => {
     // Define validation checks for each input field
     const validationChecks = {
@@ -48,7 +47,6 @@ export const useShoppingCart = () => {
       return;
     }
 
-    // Create new item object
     const newItem = {
       name,
       price: parseFloat(price),
@@ -80,13 +78,11 @@ export const useShoppingCart = () => {
     setError('');
   };
 
-  // Function to remove an item from the shopping cart
   const removeItem = (index) => {
     const updatedItems = items.filter((_, i) => i !== index);
     setItems(updatedItems);
   };
 
-  // Function to edit an item in the shopping cart
   const editItem = (index) => {
     const item = items[index];
     setName(item.name);
@@ -98,12 +94,10 @@ export const useShoppingCart = () => {
     setEditIndex(index);
   };
 
-  // Function to calculate the total cost of all items in the shopping cart
   const calculateTotal = () => {
     return items.reduce((total, item) => total + calculateItemTotal(item), 0);
   };
 
-  // Function to calculate total cost of an item including tax and discount
   const calculateItemTotal = (item) => {
     let itemTotal = item.price * item.quantity;
     if (item.taxable) {
@@ -115,12 +109,10 @@ export const useShoppingCart = () => {
     return itemTotal;
   };
 
-  // Function to calculate tax amount based on total amount and tax rate
   const calculateTax = (amount, taxRate) => {
     return amount * taxRate;
   };
 
-  // Function to calculate discount amount based on total amount and discount rate
   const calculateDiscount = (amount, discountRate) => {
     return (amount * discountRate) / 100;
   };

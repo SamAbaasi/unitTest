@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// Function to calculate total cost of an item including tax and discount
 const calculateItemTotal = (item) => {
   let itemTotal = item.price * item.quantity;
   if (item.taxable) {
@@ -12,37 +11,30 @@ const calculateItemTotal = (item) => {
   return itemTotal;
 };
 
-// Function to calculate tax amount based on total amount and tax rate
 const calculateTax = (amount, taxRate) => {
   return amount * taxRate;
 };
 
-// Function to calculate discount amount based on total amount and discount rate
 const calculateDiscount = (amount, discountRate) => {
   return (amount * discountRate) / 100;
 };
 
-// Validation function to check if name is not empty
 const validateName = (name) => {
   return name.trim() !== '';
 };
 
-// Validation function to check if price is a valid number and >= 0
 const validatePrice = (price) => {
   return !isNaN(price) && parseFloat(price) >= 0;
 };
 
-// Validation function to check if quantity is a valid number and > 0
 const validateQuantity = (quantity) => {
   return !isNaN(quantity) && parseInt(quantity, 10) > 0;
 };
 
-// Validation function to check if tax rate is a valid number between 0 and 100
 const validateTaxRate = (taxRate) => {
   return !isNaN(taxRate) && parseFloat(taxRate) >= 0 && parseFloat(taxRate) <= 100;
 };
 
-// Validation function to check if discount rate is a valid number between 0 and 100
 const validateDiscount = (discount) => {
   return !isNaN(discount) && parseFloat(discount) >= 0 && parseFloat(discount) <= 100;
 };
@@ -58,9 +50,7 @@ export const useShoppingCart = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [error, setError] = useState('');
 
-  // Function to add an item to the shopping cart
   const addItem = () => {
-    // Validate input fields before adding item
     if (!validateName(name)) {
       setError('Please enter a valid name.');
       return;
@@ -82,7 +72,6 @@ export const useShoppingCart = () => {
       return;
     }
 
-    // Create new item object
     const newItem = {
       name,
       price: parseFloat(price),
@@ -114,13 +103,11 @@ export const useShoppingCart = () => {
     setError('');
   };
 
-  // Function to remove an item from the shopping cart
   const removeItem = (index) => {
     const updatedItems = items.filter((_, i) => i !== index);
     setItems(updatedItems);
   };
 
-  // Function to edit an item in the shopping cart
   const editItem = (index) => {
     const item = items[index];
     setName(item.name);
@@ -132,7 +119,6 @@ export const useShoppingCart = () => {
     setEditIndex(index);
   };
 
-  // Function to calculate the total cost of all items in the shopping cart
   const calculateTotal = () => {
     return items.reduce((total, item) => total + calculateItemTotal(item), 0);
   };

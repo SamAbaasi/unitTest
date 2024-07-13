@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { useShoppingCart } from './useShoppingCartV3AddValidation';
+import { useShoppingCart } from './useShoppingCartV7Refactor';
 
 function App() {
   const {
@@ -10,6 +10,7 @@ function App() {
     quantity,
     taxable,
     taxRate,
+    discount,
     editIndex,
     error,
     setName,
@@ -17,6 +18,7 @@ function App() {
     setQuantity,
     setTaxable,
     setTaxRate,
+    setDiscount,
     addItem,
     removeItem,
     editItem,
@@ -61,6 +63,12 @@ function App() {
             onChange={(e) => setTaxRate(e.target.value)}
           />
         )}
+        <input
+          type="number"
+          placeholder="Discount (%)"
+          value={discount}
+          onChange={(e) => setDiscount(e.target.value)}
+        />
         <button onClick={addItem}>{editIndex !== null ? 'Update Item' : 'Add Item'}</button>
         {error && <p className="error">{error}</p>}
       </div>
@@ -68,7 +76,7 @@ function App() {
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            Name: {item.name}, Price: ${item.price}, Quantity: {item.quantity}, Taxable: {item.taxable ? 'Yes' : 'No'}, Tax Rate: {(item.taxRate * 100).toFixed(2)}%
+            Name: {item.name}, Price: ${item.price}, Quantity: {item.quantity}, Taxable: {item.taxable ? 'Yes' : 'No'}, Tax Rate: {(item.taxRate * 100).toFixed(2)}%, Discount: {item.discount}%
             <button onClick={() => editItem(index)}>Edit</button>
             <button onClick={() => removeItem(index)}>Remove</button>
           </li>

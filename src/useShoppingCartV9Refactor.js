@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // You need to install uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 
 export const useShoppingCart = () => {
   const [items, setItems] = useState([]);

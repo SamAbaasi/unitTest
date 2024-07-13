@@ -29,9 +29,7 @@ const useShoppingCart = () => {
     }
   };
 
-  // Function to add an item to the shopping cart
   const addItem = () => {
-    // Validate input fields before adding item
     if (!validateInput('name', name)) {
       setError('Please enter a valid name.');
       return;
@@ -53,7 +51,6 @@ const useShoppingCart = () => {
       return;
     }
 
-    // Create new item object
     const newItem = {
       name,
       price: parseFloat(price),
@@ -63,7 +60,6 @@ const useShoppingCart = () => {
       discount: discount !== '' ? parseFloat(discount) : 0,
     };
 
-    // If editing an item, update the existing item in the cart
     if (editIndex !== null) {
       const updatedItems = items.map((item, index) =>
         index === editIndex ? newItem : item
@@ -71,11 +67,9 @@ const useShoppingCart = () => {
       setItems(updatedItems);
       setEditIndex(null);
     } else {
-      // Otherwise, add the new item to the cart
       setItems([...items, newItem]);
     }
 
-    // Clear input fields and reset error state
     setName('');
     setPrice('');
     setQuantity('');
@@ -85,13 +79,11 @@ const useShoppingCart = () => {
     setError('');
   };
 
-  // Function to remove an item from the shopping cart
   const removeItem = (index) => {
     const updatedItems = items.filter((_, i) => i !== index);
     setItems(updatedItems);
   };
 
-  // Function to edit an item in the shopping cart
   const editItem = (index) => {
     const item = items[index];
     setName(item.name);
@@ -103,12 +95,10 @@ const useShoppingCart = () => {
     setEditIndex(index);
   };
 
-  // Function to calculate the total cost of all items in the shopping cart
   const calculateTotal = () => {
     return items.reduce((total, item) => total + calculateItemTotal(item), 0);
   };
 
-  // Function to calculate total cost of an item including tax and discount
   const calculateItemTotal = (item) => {
     let itemTotal = item.price * item.quantity;
     if (item.taxable) {
@@ -120,12 +110,10 @@ const useShoppingCart = () => {
     return itemTotal;
   };
 
-  // Function to calculate tax amount based on total amount and tax rate
   const calculateTax = (amount, taxRate) => {
     return amount * taxRate;
   };
 
-  // Function to calculate discount amount based on total amount and discount rate
   const calculateDiscount = (amount, discountRate) => {
     return (amount * discountRate) / 100;
   };
