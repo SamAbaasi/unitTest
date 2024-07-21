@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { useShoppingCart } from './useShoppingCartV8Refactor';
+import { useShoppingCart } from './useShoppingCartV2';
 
 function App() {
   const {
@@ -10,15 +10,12 @@ function App() {
     quantity,
     taxable,
     taxRate,
-    discount,
     editIndex,
-    error,
     setName,
     setPrice,
     setQuantity,
     setTaxable,
     setTaxRate,
-    setDiscount,
     addItem,
     removeItem,
     editItem,
@@ -55,28 +52,19 @@ function App() {
             onChange={(e) => setTaxable(e.target.checked)}
           />
         </label>
-        {taxable && (
-          <input
-            type="number"
-            placeholder="Tax Rate (%)"
-            value={taxRate}
-            onChange={(e) => setTaxRate(e.target.value)}
-          />
-        )}
         <input
           type="number"
-          placeholder="Discount (%)"
-          value={discount}
-          onChange={(e) => setDiscount(e.target.value)}
+          placeholder="Tax Rate (%)"
+          value={taxRate}
+          onChange={(e) => setTaxRate(e.target.value)}
         />
         <button onClick={addItem}>{editIndex !== null ? 'Update Item' : 'Add Item'}</button>
-        {error && <p className="error">{error}</p>}
       </div>
       <h2>Total: ${calculateTotal().toFixed(2)}</h2>
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            Name: {item.name}, Price: ${item.price}, Quantity: {item.quantity}, Taxable: {item.taxable ? 'Yes' : 'No'}, Tax Rate: {(item.taxRate * 100).toFixed(2)}%, Discount: {item.discount}%
+            Name: {item.name}, Price: ${item.price}, Quantity: {item.quantity}, Taxable: {item.taxable ? 'Yes' : 'No'}, Tax Rate: {(item.taxRate * 100).toFixed(2)}%
             <button onClick={() => editItem(index)}>Edit</button>
             <button onClick={() => removeItem(index)}>Remove</button>
           </li>
